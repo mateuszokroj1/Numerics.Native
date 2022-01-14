@@ -15,4 +15,4 @@ Numerics operations with IA-64 architecture and SSE/AVX extensions.
 4. Build your generated compiler project files created in previously created dir.
 If you use GCC/MinGW, you can use `make` command.
 
-The final object is shared library for your current operating system.
+The final object is a static library for your current operating system.
