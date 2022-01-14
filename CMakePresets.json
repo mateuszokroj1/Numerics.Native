@@ -1,0 +1,22 @@
+﻿{
+  "version": 2,
+  "configurePresets": [
+    {
+      "name": "x64-default",
+      "displayName": "Default preset",
+      "description": "Preset used for rolling build",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install",
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      }
+    }
+  ]
+}
