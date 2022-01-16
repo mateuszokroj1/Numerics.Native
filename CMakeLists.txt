@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.14)
 
 project(Numerics.Native VERSION 0.1 LANGUAGES CXX)
 
@@ -7,7 +7,7 @@ project(Numerics.Native VERSION 0.1 LANGUAGES CXX)
 	)
 
 	add_library(${PROJECT_NAME} STATIC ${SOURCES})
-	target_include_directories(${PROJECT_NAME} PRIVATE "include" "libs/googletest/googletest/include")
-	target_link_directories(${PROJECT_NAME} PRIVATE ${GTEST_BINARY_DIR})
+	target_include_directories(${PROJECT_NAME} PUBLIC "include")
 
-	add_subdirectory("libs/googletest/googletest")
+add_subdirectory(libs)
+add_subdirectory(tests)
