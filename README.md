@@ -15,7 +15,7 @@ This setting will make the repository pick up submodules correctly.
 ## Build
 
 1. Open Bash/Terminal/PowerShell and go to directory, where Git repo is located.
-2. Created new *out* directory inside: `mkdir out` and go to this dir `cd out`.
+2. Created new *build* directory inside: `mkdir build` and go to this dir `cd build`.
 4. Run `cmake ..`.
 5. Build your generated compiler project files created in previously created dir.
 If you use GCC/MinGW, you can use `make` command.
