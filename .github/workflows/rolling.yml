@@ -6,7 +6,7 @@ name: Rolling build
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main, feature/*, fix/*, release/* ]
+    branches: [ main, Architecture, feature/*, fix/*, release/* ]
   pull_request:
     branches: none
 
