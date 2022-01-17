@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.21)
 
-project(Numerics.Native VERSION 0.1 LANGUAGES CXX)
-
-	add_subdirectory("libs/gtest")
+project(Numerics.Native VERSION 0.1 LANGUAGES C CXX)
 
 	set(SOURCES
 		"src/Numerics.Native.cpp"
@@ -14,6 +12,7 @@ project(Numerics.Native VERSION 0.1 LANGUAGES CXX)
 option(PACKAGE_TESTS "Build the tests" ON)
 if(PACKAGE_TESTS)
     enable_testing()
-    include(GoogleTest)
+	#find_package(GTest COMPONENTS GTest::gtest GTest::gtest_main)
+    #include(GoogleTest)
     add_subdirectory(tests)
 endif()

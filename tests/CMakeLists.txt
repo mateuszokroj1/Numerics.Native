@@ -4,14 +4,21 @@ set(test_files
     src/test1.cpp
 )
 
-set(ProjectName Numerics.Native.Tests)
-set(TEST_WORKING_DIRECTORY "${PROJECT_DIR}/data")
+#set(TEST_WORKING_DIRECTORY "${PROJECT_DIR}/data")
 
-add_executable(${ProjectName} ${test_files})
+include(FetchContent)
 
-    target_link_libraries(${ProjectName} gtest gtest_main)
+FetchContent_Declare(
+  googletest
+  # Specify the commit you depend on and update it regularly.
+  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+)
 
-    gtest_discover_tests(${ProjectName}
-        WORKING_DIRECTORY ${TEST_WORKING_DIRECTORY}
-        PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${TEST_WORKING_DIRECTORY}"
-    )
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+add_executable(${PROJECT_NAME} ${test_files})
+
+    target_link_libraries(${PROJECT_NAME} gtest_main)
+
+    add_test(NAME test1 COMMAND test1)
