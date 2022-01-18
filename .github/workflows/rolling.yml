@@ -17,10 +17,14 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    name: Building rolling build
-  
+    name: Rolling build
+    
+    strategy:
+      matrix:
+        runsOn: [ubuntu-latest,windows-latest,macos-latest]
+    
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.runsOn}}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -38,8 +42,5 @@ jobs:
       - name: Configure CMake project
         run: cmake --preset "x64-Debug"
         
-      - name: Build CMake
+      - name: Build with CMake
         run: cmake --build ./out/build/x64-Debug
-        
-      - name: test
-        run: cd out/build/x64-Debug && ls
