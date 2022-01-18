@@ -38,7 +38,7 @@ jobs:
         uses: lukka/run-cmake@v10.0
         with:
           # Path to CMakeLists.txt.
-          #cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
+          cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
           # The name of the configure preset. Optional.
           configurePreset: x64-Debug # no test
           # The name of the build preset. Optional.
