@@ -42,4 +42,4 @@ jobs:
         run: cmake .
         
       - name: test
-        run: cd out/build/x64-Debug && ls
+        run: cd bin && ls
