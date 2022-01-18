@@ -34,6 +34,12 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: lukka/get-cmake@2e45cd82cd67abcfd1b61fb17c253b99f8257189
         uses: lukka/get-cmake@v3.21.2
+        
+      - name: Set up Clang
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: latest
+          platform: x64
       
       - name: Configure CMake project
         run: cmake --preset "x64-Debug"
@@ -42,4 +48,4 @@ jobs:
         run: cmake .
         
       - name: test
-        run: cd bin && ls
+        run: cd out/build/x64-Debug && ls
