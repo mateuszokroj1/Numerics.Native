@@ -12,7 +12,7 @@ endif()
 
 add_executable(${PROJECT_NAME} ${test_files})
 
-    target_link_libraries(${PROJECT_NAME} gtest_main)
+    target_link_libraries(${PROJECT_NAME} gtest_main Numerics.Native)
 
     add_test(NAME TestGroup COMMAND "Test")
 
