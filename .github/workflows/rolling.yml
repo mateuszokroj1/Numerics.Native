@@ -33,27 +33,6 @@ jobs:
         uses: lukka/get-cmake@v3.21.2
       
       - name: Build with CMake
-        # You may pin to the exact commit or the version.
-        # uses: lukka/run-cmake@e265d767c12ee0dc03becaa1d55155db4beb45f6
-        uses: lukka/run-cmake@v10.0
-        with:
-          # Path to CMakeLists.txt.
-          cmakeListsTxtPath: ${{ github.workspace }}/CMakeLists.txt
-          # The name of the configure preset. Optional.
-          configurePreset: x64-Debug # no test
-          # The name of the build preset. Optional.
-          #buildPreset: # optional, default is 
-          # The name of the test preset. Optional.
-          #testPreset: # optional, default is 
-          # Specify which shell to be used when launching commands. 'true' means the default shell is used. 'false' means no shell is used. It also can be an absolute with arguments of the shell to spawn commands with.
-          #useShell: # optional, default is true
-          # Specifies a semicolon separated list of regular expressions that are used to identify log file paths in the workflow output. A regular expression must have a single capturing group, that is a single pair of parenthesis such as 'See also (.+.log)'. When a match occurs, the content of the file is written into the workflow output for disclosing its content to the user. The default regular expressions are for CMake's and vcpkg's log files.
-          #logCollectionRegExps: # optional, default is \s*"(.+CMakeOutput\.log)"\.\s*;\s*"(.+CMakeError\.log)"\.\s*;\s*(.+out\.log)\s*;\s+(.+err\.log)\s*;\s*(.+vcpkg.+\.log)\s*
-          # The CMake command format string to configure and generate project files.
-          #configurePresetCmdString: # optional, default is [`--preset`, `$[env.CONFIGURE_PRESET_NAME]`]
-          # The CMake command format string to run the build.
-          #buildPresetCmdString: # optional, default is [`--build`, `--preset`, `$[env.BUILD_PRESET_NAME]`]
-          # The CTest command format string to run test.
-          #testPresetCmdString: # optional, default is [`--preset`, `$[env.TEST_PRESET_NAME]`]
-          # Specify the command line to dump the environment variables with the 'vcpkg env' command. This command is only used when setting up the environment for MSVC on Windows.
-          #runVcpkgEnvFormatString: # optional, default is [`env`, `--bin`, `--include`, `--tools`, `--python`, `--triplet`, `$[env.VCPKG_DEFAULT_TRIPLET]`, `set`]
+        run: cd $GITHUB_WORKSPACE |
+             mkdir build && cd build |
+             cmake .. --build --preset "x64-Debug"
