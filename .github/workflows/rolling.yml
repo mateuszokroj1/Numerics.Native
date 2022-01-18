@@ -24,6 +24,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    
+      - name: Checkout
+        uses: actions/checkout@latest
       
       - run: pwd
       
@@ -32,7 +35,7 @@ jobs:
       - name: get-cmake
         # You may pin to the exact commit or the version.
         # uses: lukka/get-cmake@2e45cd82cd67abcfd1b61fb17c253b99f8257189
-        uses: lukka/get-cmake@v3.21.2
+        uses: lukka/get-cmake@latest
       
       - name: Configure CMake project
         run: |
