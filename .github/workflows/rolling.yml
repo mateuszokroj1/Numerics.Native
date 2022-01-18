@@ -34,5 +34,7 @@ jobs:
       
       - name: Build with CMake
         run: cd $GITHUB_WORKSPACE |
-             mkdir build && cd build |
-             cmake .. --build --preset "x64-Debug"
+             mkdir build |
+             cd build |
+             cmake --preset "x64-Debug" ..
+             cmake ..
