@@ -36,4 +36,10 @@ jobs:
         uses: lukka/get-cmake@v3.21.2
       
       - name: Configure CMake project
-        run: cmake --build --preset "x64-Debug"
+        run: cmake --preset "x64-Debug"
+        
+      - name: Build CMake
+        run: cmake .
+        
+      - name: test
+        run: cd out/build/x64-Debug | ls
