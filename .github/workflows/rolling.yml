@@ -45,7 +45,7 @@ jobs:
         run: cmake --preset "x64-Debug"
         
       - name: Build CMake
-        run: cmake .
+        run: cmake -DCMAKE_CXX_COMPILER=clang -DCMAKE_C_COMPILER=clang .
         
       - name: test
         run: cd out/build/x64-Debug && ls
