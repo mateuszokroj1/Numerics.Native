@@ -39,10 +39,7 @@ jobs:
         run: cmake --preset "x64-Debug"
         
       - name: Build CMake
-        run: |
-          cd out/build/x64-Debug |
-          ls |
-          cmake --build
+        run: cmake --build ./out/build/x64-Debug
         
       - name: test
         run: cd out/build/x64-Debug && ls
