@@ -15,9 +15,7 @@ This setting will make the repository pick up submodules correctly.
 ## Build
 
 1. Open Bash/Terminal/PowerShell and go to directory, where Git repo is located.
-2. Created new *build* directory inside: `mkdir build` and go to this dir `cd build`.
-4. Run `cmake ..`.
-5. Build your generated compiler project files created in previously created dir.
-If you use GCC/MinGW, you can use `make` command.
+2. Prepare cache files with CMake: `cmake --preset "x64-Debug"`.
+3. Build your project: `cmake --build`.
 
-The final object is a static library compatible with the operating system that built the project.
+The final object is a dynamic library compatible with the operating system that built the project.
