@@ -1,0 +1,4 @@
+[submodule "tests/libs/gtest"]
+	path = tests/libs/gtest
+	url = https://github.com/google/googletest.git
+	branch = main
