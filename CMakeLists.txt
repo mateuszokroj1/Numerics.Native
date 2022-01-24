@@ -9,6 +9,7 @@ project(Numerics.Native VERSION 0.1 LANGUAGES C CXX)
 
 	add_library(${PROJECT_NAME} SHARED ${SOURCES})
 	target_include_directories(${PROJECT_NAME} PUBLIC "include")
+	SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
 
 option(PACKAGE_TESTS "Build the tests" ON)
 if(PACKAGE_TESTS)
