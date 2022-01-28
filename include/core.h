@@ -5,8 +5,8 @@
 #ifndef CORE_H
 #define CORE_H
 
-float __vectorcall add(float, float);
-double __vectorcall add(double, double);
+float add(float, float);
+double add(double, double);
 __m128 __vectorcall add(__m128, __m128);
 __m128d __vectorcall add(__m128d, __m128d);
 __m256 __vectorcall add(__m256, __m256);
