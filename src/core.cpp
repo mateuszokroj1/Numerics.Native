@@ -1,7 +1,5 @@
 #include "core.h"
 
-extern "C"
-{
 	float add(float a, float b)
 	{
 		__m128 xmm0, xmm1;
@@ -17,4 +15,3 @@ extern "C"
 		xmm1.m128d_f64[0] = b;
 		return _mm_add_sd(xmm0, xmm1).m128d_f64[0];
 	}
-}
