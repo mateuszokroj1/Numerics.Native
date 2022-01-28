@@ -1,6 +1,6 @@
 #include <intrin.h>
-#include <mmintrin.h>
-#include <xmmintrin.h>
+	#include <x86intrin.h>
+#endif
 
 #ifndef CORE_H
 #define CORE_H

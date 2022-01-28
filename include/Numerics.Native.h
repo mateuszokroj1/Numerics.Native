@@ -1,11 +1,6 @@
-#include "core.h"
-#include "Numerics_Native_Export.h"
+#ifndef NUMERICS_NATIVE_H
+#define NUMERICS_NATIVE_H
 
-namespace Numerics
-{
-	class NUMERICS_NATIVE_EXPORT Native
-	{
-	public:
-		const char Name[16] = "Numerics.Native";
-	};
-}
+#include "core.h"
+
+#endif
