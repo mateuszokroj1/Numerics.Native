@@ -3,9 +3,10 @@ Numerics operations with IA-64 architecture and SSE/AVX extensions.
 
 ## Development requirements
 
-* Any IDE (recommended VisualStudio or VS Code)
-* Any C++ compiler running on x64 mode (recommended MSVC MSBuild)
-* CMake min. version 3.3
+* MS Visual Studio IDE with MSVC compiler
+* MS Windows (minimum Vista 64bit)
+* CMake min. version 3.2
+* 64bit CPU with SSE/AVX support
 
 ## Cloning
 
@@ -15,7 +16,16 @@ This setting will make the repository pick up submodules correctly.
 ## Build
 
 1. Open Bash/Terminal/PowerShell and go to directory, where Git repo is located.
-2. Prepare cache files with CMake: `cmake --preset "x64-Debug"`.
-3. Build your project: `cmake --build`.
+2. Prepare cache files with CMake: `cmake --preset "x64-default"`.
+3. Go to `out/build` dir.
+4. Build your project: `cmake --build .`.
 
-The final object is a dynamic library compatible with the operating system that built the project.
+The final objects are:
+* Numerics.Native.dll shared library
+* Numerics.Native.h import header
+* Numerics_Native_Export.h export header
+* Numerics.Native.lib import symbols for linkage to your project
+
+## Test
+
+After build you can go to `out/build` dir and run `ctest .`.
