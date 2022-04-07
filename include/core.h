@@ -1,8 +1,6 @@
-#ifdef WIN32
-	#include <intrin.h>
-#elif defined(__i386__) || defined(__x86_64__)
-	#include <x86intrin.h>
-#endif
+#include <intrin.h>
+#include <mmintrin.h>
+#include <xmmintrin.h>
 
 #ifndef CORE_H
 #define CORE_H

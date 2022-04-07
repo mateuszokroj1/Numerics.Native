@@ -6,47 +6,64 @@ name: Nightly build
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: none
+    branches: [ Architecture ]
+    paths: [ '.github/workflows/nightly.yml' ]
   pull_request:
     branches: [ main, release/* ]
+    paths-ignore: [ '.github/' ]
   schedule:
-    - cron: "0 0 * * 1-5"
+    - cron: "0 0 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  BuildDir: 'out/build'
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
   # This workflow contains a single job called "build"
   build:
-    name: Nightly build
-    
-    strategy:
-      matrix:
-        runsOn: [ubuntu-latest,windows-latest,macos-latest]
+    name: Build for Windows
     
     # The type of runner that the job will run on
-    runs-on: ${{matrix.runsOn}}
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
-      - name: Checkout
-        uses: actions/checkout@v2.4.0
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        name: Checkout Git
         with:
-          submodules: 'recursive'
-      
+          submodules: recursive
+          
+      - name: Setup VS Dev Environment
+        # You may pin to the exact commit or the version.
+        # uses: seanmiddleditch/gha-setup-vsdevenv@adf16e54e207da0da148c8901a98a34d7aa3eb7a
+        uses: seanmiddleditch/gha-setup-vsdevenv@v4
+    
       - name: get-cmake
         # You may pin to the exact commit or the version.
-        # uses: lukka/get-cmake@2e45cd82cd67abcfd1b61fb17c253b99f8257189
-        uses: lukka/get-cmake@v3.21.2
+        # uses: lukka/get-cmake@f9881bde497b750f306f2a71dae9bc9fe92279d1
+        uses: lukka/get-cmake@v3.22.2
       
-      - name: Configure CMake project
-        run: cmake --preset "x64-Release&Test"
+      - name: CMake configure
+        run: cmake --preset x64-default
         
-      - name: Build with CMake
-        run: cmake --build "./out/build/x64-Release&Test"
-
+      - name: CMake build Debug
+        working-directory: ${{ env.BuildDir }}
+        run: cmake --build .
+          
       - name: Test
-        run: |
-          "./out/build/x64-Release&Test/tests/Numerics.Native.Tests" || "./out/build/x64-Release&Test/tests/Numerics.Native.Tests.exe"
+        working-directory: ${{ env.BuildDir }}
+        run: ctest .
+        
+      - name: CMake Install Project
+        working-directory: ${{ env.BuildDir }}
+        run: cmake --install .
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          path: 'out/install'
