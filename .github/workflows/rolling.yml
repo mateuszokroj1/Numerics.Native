@@ -19,12 +19,8 @@ jobs:
   build:
     name: Rolling build
     
-    strategy:
-      matrix:
-        runsOn: [ubuntu-latest,windows-latest,macos-latest]
-    
     # The type of runner that the job will run on
-    runs-on: ${{matrix.runsOn}}
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +36,8 @@ jobs:
         uses: lukka/get-cmake@v3.21.2
       
       - name: Configure CMake project
-        run: cmake --preset "x64-Debug"
+        run: cmake --preset x64-default
         
       - name: Build with CMake
-        run: cmake --build ./out/build/x64-Debug
+        working-directory: out/build
+        run: cmake --build .
