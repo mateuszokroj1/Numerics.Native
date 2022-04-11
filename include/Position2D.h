@@ -3,28 +3,19 @@
 
 #include <array>
 
+#include "VectorBase2D.h"
 #include "Numerics_Native_Export.h"
 
 namespace Numerics
 {
 	template<typename T>
-	struct NUMERICS_NATIVE_EXPORT Position2D
+	struct NUMERICS_NATIVE_EXPORT Position2D : public VectorBase2D<T>
 	{
 	public:
 		constexpr Position2D();
 		constexpr Position2D(const T&, const T&);
 		constexpr Position2D(const Position2D&);
 		constexpr Position2D(const Position2D&&);
-
-	private:
-		std::array<T, 3> data;
-
-	public:
-		const T x();
-		void x(const T&);
-
-		const T y();
-		void y(const T&);
 	};
 }
 
