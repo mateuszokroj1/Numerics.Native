@@ -19,6 +19,10 @@ on:
 
 env:
   BuildDir: 'out/build'
+  SONAR_SCANNER_VERSION: 4.7.0.2747
+  SONAR_SERVER_URL: "https://sonarcloud.io"
+  BUILD_WRAPPER_OUT_DIR: 'out/build'
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,11 +36,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         name: Checkout Git
         with:
           submodules: recursive
+          fetch-depth: 0
           
       - name: Setup VS Dev Environment
         # You may pin to the exact commit or the version.
@@ -48,12 +54,41 @@ jobs:
         # uses: lukka/get-cmake@f9881bde497b750f306f2a71dae9bc9fe92279d1
         uses: lukka/get-cmake@v3.22.2
       
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+          
+      - name: Download and set up sonar-scanner
+        env:
+          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-windows.zip
+        run: |
+          New-Item -Force -ItemType directory -Path $HOME\.sonar
+          curl -sSLo $HOME\.sonar\sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }}
+          unzip -o $HOME\.sonar\sonar-scanner.zip -d $HOME\.sonar\
+          echo "$HOME\.sonar\sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-windows\bin" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+      
+      - name: Download and set up build-wrapper
+        env:
+          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-win-x86.zip
+        run: |
+          curl -sSLo $HOME\.sonar\build-wrapper.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o $HOME\.sonar\build-wrapper.zip -d $HOME\.sonar\
+          echo "$HOME\.sonar\build-wrapper-win-x86" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+      
       - name: CMake configure
         run: cmake --preset x64-default
         
-      - name: CMake build Debug
-        working-directory: ${{ env.BuildDir }}
-        run: cmake --build .
+      - name: Run build-wrapper
+        run: |
+          build-wrapper-win-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build ${{ env.BuildDir }}
+          
+      - name: Run sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
           
       - name: Test
         working-directory: ${{ env.BuildDir }}

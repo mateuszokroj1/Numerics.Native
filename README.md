@@ -1,6 +1,9 @@
 # Numerics.Native
 Numerics operations with IA-64 architecture and SSE/AVX extensions.
 
+[![Nightly build](https://github.com/mateuszokroj1/Numerics.Native/actions/workflows/nightly.yml/badge.svg?branch=main)](https://github.com/mateuszokroj1/Numerics.Native/actions/workflows/nightly.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateuszokroj1_Numerics.Native&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateuszokroj1_Numerics.Native)
+
 ## Development requirements
 
 * MS Visual Studio IDE with MSVC compiler
